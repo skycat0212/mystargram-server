@@ -12,12 +12,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Article {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
-    private User writer;
-    private String content;
-//    private String imgUrl;
+    @Column(unique = true)
+    private String userId;
+    private String password;
 }

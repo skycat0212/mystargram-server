@@ -24,29 +24,14 @@ class DemoApplicationTests {
     void getArticleById() {
         Integer id = 1;
 
-        Article article = articleRepository.findById(id).get();
-        System.out.println("get article 1 : " + article);
-
-        Integer writerId = 12;
-        String content = "this is first Article";
-
-        assertThat(article.getId(), is(id));
-        assertThat(article.getWriterId(), is(writerId));
-        assertThat(article.getContent(), is(content));
-    }
-
-    @Test
-    void getArticleByIdByController() {
-        Integer id = 1;
-
         Article article = articleController.findById(id);
         System.out.println("get article 1 by Controller : " + article);
 
-        Integer writerId = 12;
+        Integer writerId = 1;
         String content = "this is first Article";
 
         assertThat(article.getId(), is(id));
-        assertThat(article.getWriterId(), is(writerId));
+        assertThat(article.getWriter().getId(), is(writerId));
         assertThat(article.getContent(), is(content));
     }
 
