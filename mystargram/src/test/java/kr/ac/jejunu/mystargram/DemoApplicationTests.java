@@ -1,10 +1,11 @@
-package kr.ac.jejunu.demo;
+package kr.ac.jejunu.mystargram;
 
+import kr.ac.jejunu.mystargram.controller.ArticleController;
+import kr.ac.jejunu.mystargram.entity.Article;
+import kr.ac.jejunu.mystargram.repository.ArticleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;

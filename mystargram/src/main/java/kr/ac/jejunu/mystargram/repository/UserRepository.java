@@ -1,5 +1,6 @@
-package kr.ac.jejunu.demo;
+package kr.ac.jejunu.mystargram.repository;
 
+import kr.ac.jejunu.mystargram.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
-package kr.ac.jejunu.demo;
+package kr.ac.jejunu.mystargram.service;
 
+import kr.ac.jejunu.mystargram.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

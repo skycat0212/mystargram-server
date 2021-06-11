@@ -1,4 +1,4 @@
-package kr.ac.jejunu.demo;
+package kr.ac.jejunu.mystargram.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

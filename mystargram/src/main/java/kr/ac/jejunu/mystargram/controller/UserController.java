@@ -1,5 +1,9 @@
-package kr.ac.jejunu.demo;
+package kr.ac.jejunu.mystargram.controller;
 
+import kr.ac.jejunu.mystargram.repository.UserRepository;
+import kr.ac.jejunu.mystargram.entity.Token;
+import kr.ac.jejunu.mystargram.entity.User;
+import kr.ac.jejunu.mystargram.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;

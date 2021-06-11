@@ -1,9 +1,9 @@
-package kr.ac.jejunu.demo;
+package kr.ac.jejunu.mystargram.controller;
 
+import kr.ac.jejunu.mystargram.repository.ArticleRepository;
+import kr.ac.jejunu.mystargram.entity.Article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("article")

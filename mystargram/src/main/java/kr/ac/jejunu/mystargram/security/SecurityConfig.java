@@ -1,4 +1,4 @@
-package kr.ac.jejunu.demo;
+package kr.ac.jejunu.mystargram.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
