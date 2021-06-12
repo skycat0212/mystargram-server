@@ -21,20 +21,20 @@ class DemoApplicationTests {
     void contextLoads() {
     }
 
-    @Test
-    void getArticleById() {
-        Integer id = 1;
-
-        Article article = articleController.findById(id);
-        System.out.println("get article 1 by Controller : " + article);
-
-        Integer writerId = 1;
-        String content = "this is first Article";
-
-        assertThat(article.getId(), is(id));
-        assertThat(article.getWriter().getId(), is(writerId));
-        assertThat(article.getContent(), is(content));
-    }
+//    @Test
+//    void getArticleById() {
+//        Integer id = 1;
+//
+//        Article article = articleController.findById(id);
+//        System.out.println("get article 1 by Controller : " + article);
+//
+//        Integer writerId = 1;
+//        String content = "this is first Article";
+//
+//        assertThat(article.getId(), is(id));
+//        assertThat(article.getWriter().getId(), is(writerId));
+//        assertThat(article.getContent(), is(content));
+//    }
 
 
 }
