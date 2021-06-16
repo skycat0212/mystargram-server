@@ -19,5 +19,5 @@ public class Article {
     @ManyToOne
     private User writer;
     private String content;
-//    private String imgUrl;
+    private String imgUrl;
 }

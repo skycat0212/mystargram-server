@@ -1,9 +1,11 @@
 package kr.ac.jejunu.mystargram.controller;
 
+import kr.ac.jejunu.mystargram.entity.ArticlePack;
 import kr.ac.jejunu.mystargram.entity.User;
 import kr.ac.jejunu.mystargram.repository.ArticleRepository;
 import kr.ac.jejunu.mystargram.entity.Article;
 import kr.ac.jejunu.mystargram.repository.UserRepository;
+import kr.ac.jejunu.mystargram.utils.ImageUtils;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
 import java.net.http.HttpHeaders;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -57,10 +62,27 @@ public class ArticleController {
 
     // 게시물 저장하기
     @PostMapping("/write")
-    public Article addArticle(Principal principal, @RequestBody Article inputArticle) {
+    public Article addArticle(Principal principal, @RequestBody ArticlePack inputArticle) throws IOException {
         User user = userRepository.findByUsername(principal.getName()).get();
-        Article article = inputArticle;
+        Article article = inputArticle.getArticle();
         article.setWriter(user);
+
+        System.out.println("article pack : ");
+        System.out.println(inputArticle);
+
+        //
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date time = new Date();
+        String fileName = user.getId().toString() + "-" + dateFormat.format(time);
+        String imgPath = ImageUtils.generateImgPath("article", fileName, "jpg");
+        byte[] imgData = ImageUtils.base64ToByteArray(inputArticle.getArticleImgData().toString());
+        File saveFile = new File(imgPath);
+
+        System.out.println(saveFile.getName());
+        System.out.println(saveFile.getAbsolutePath());
+        ImageUtils.writeImageAtFile(imgData, saveFile);
+
+        article.setImgUrl(imgPath);
         return articleRepository.save(article);
     }
 
