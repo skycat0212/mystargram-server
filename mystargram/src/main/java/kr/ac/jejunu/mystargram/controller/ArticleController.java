@@ -118,4 +118,22 @@ public class ArticleController {
         return articleRepository.save(article) != null;
     }
 
+    // 게시글 삭제하기
+    @DeleteMapping("/delete")
+    public Boolean deleteArticle(Principal principal, @RequestBody Article article) {
+        User user = userRepository.findByUsername(principal.getName()).get();
+        if (!user.getUsername().equals(article.getWriter().getUsername())) {
+            return false;
+        }
+        Article deletedArticle = article;
+        deletedArticle.setWriter(user);
+        articleRepository.delete(deletedArticle);
+        System.out.println(articleRepository.findById(deletedArticle.getId()));
+        if (articleRepository.findById(deletedArticle.getId()).isEmpty()){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
