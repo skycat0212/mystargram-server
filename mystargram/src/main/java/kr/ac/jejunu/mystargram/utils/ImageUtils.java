@@ -27,7 +27,7 @@ public class ImageUtils {
         return  decoded;
     }
 
-    public static String generateImgPath(String directoryName, String fileName, String extension) {
+    public static String generateAbsoluteImgPath(String directoryName, String fileName, String extension) {
         String baseUrl = new File("").getAbsolutePath() + "/src/main/webapp/";
         String imagePath = String.format("%s/images/%s/%s.%s", baseUrl, directoryName, fileName, extension);
         return imagePath;
