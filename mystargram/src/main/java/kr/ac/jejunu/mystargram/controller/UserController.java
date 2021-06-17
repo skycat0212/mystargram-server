@@ -6,10 +6,7 @@ import kr.ac.jejunu.mystargram.entity.User;
 import kr.ac.jejunu.mystargram.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -43,6 +40,18 @@ public class UserController {
 
         return Token.builder().token(jwtTokenProvider.createToken(user.getUsername(),user.getRoles())).build();
 
+
+    }
+
+    @GetMapping("/{username}")
+    public boolean checkUsableName(@PathVariable(value = "username") String username) {
+        System.out.println(username);
+        System.out.println(userRepository.findByUsername(username).isEmpty());
+        if (userRepository.findByUsername(username).isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
