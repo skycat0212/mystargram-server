@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Article {
+public class Article extends Object{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,4 +20,14 @@ public class Article {
     private User writer;
     private String content;
     private String imgUrl;
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", writer=" + writer +
+                ", content='" + content + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                '}';
+    }
 }

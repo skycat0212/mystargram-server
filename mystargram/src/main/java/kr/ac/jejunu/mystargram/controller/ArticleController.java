@@ -108,5 +108,14 @@ public class ArticleController {
         return articleRepository.save(article);
     }
 
+    // 게시글 수정하기
+    @PutMapping("/correct")
+    public Boolean correctArticle(Principal principal, @RequestBody Article article) {
+        User user = userRepository.findByUsername(principal.getName()).get();
+        if (!user.getUsername().equals(article.getWriter().getUsername())) {
+            return false;
+        }
+        return articleRepository.save(article) != null;
+    }
 
 }
