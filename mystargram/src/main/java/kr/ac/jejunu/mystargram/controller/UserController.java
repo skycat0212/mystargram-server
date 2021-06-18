@@ -46,24 +46,15 @@ public class UserController {
         if (!passwordEncoder.matches(loginData.get("password"), user.getPassword())) {
             throw new IllegalArgumentException("Wrong PW");
         }
-
         return Token.builder().token(jwtTokenProvider.createToken(user.getUsername(),user.getRoles())).build();
-
-
     }
 
     //아이디 중복검사
-   @GetMapping("/{username}")
+    @GetMapping("/{username}")
     public boolean checkUsableName(@PathVariable(value = "username") String username) {
-        System.out.println(username);
-        System.out.println(userRepository.findByUsername(username).isEmpty());
-        if (userRepository.findByUsername(username).isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return userRepository.findByUsername(username).isEmpty();
     }
+
     //회원 탈퇴
     @DeleteMapping("/delete/{username}")
     public boolean deleteUser(Principal principal) {

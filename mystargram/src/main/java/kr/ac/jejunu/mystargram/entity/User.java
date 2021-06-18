@@ -26,8 +26,7 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
     private String password;
-//    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
-//    private  List<Article> articles;
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
