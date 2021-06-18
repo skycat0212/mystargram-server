@@ -15,4 +15,8 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
     Page<Article> findAll(Pageable pageable);
     Page<Article> findByWriter(User writer, Pageable pageable);
+
+    List<Article> findAllByWriter(User writer);
+
+    void deleteAllByWriter(User writer);
 }

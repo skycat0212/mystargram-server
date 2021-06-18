@@ -1,15 +1,21 @@
 package kr.ac.jejunu.mystargram.controller;
 
+import kr.ac.jejunu.mystargram.entity.Article;
+import kr.ac.jejunu.mystargram.repository.ArticleRepository;
 import kr.ac.jejunu.mystargram.repository.UserRepository;
 import kr.ac.jejunu.mystargram.entity.Token;
 import kr.ac.jejunu.mystargram.entity.User;
 import kr.ac.jejunu.mystargram.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -18,6 +24,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final ArticleRepository articleRepository;
 
     // 회원가입
     @PostMapping("/enroll")
@@ -46,7 +53,7 @@ public class UserController {
     }
 
     //아이디 중복검사
-    @GetMapping("/{username}")
+   @GetMapping("/{username}")
     public boolean checkUsableName(@PathVariable(value = "username") String username) {
         System.out.println(username);
         System.out.println(userRepository.findByUsername(username).isEmpty());
@@ -55,6 +62,14 @@ public class UserController {
         } else {
             return false;
         }
+
+    }
+    //회원 탈퇴
+    @DeleteMapping("/delete/{username}")
+    public void deleteUser(Principal principal) {
+        Optional<User> user = userRepository.findByUsername(principal.getName());
+        articleRepository.deleteAllByWriter(user.get());
+        userRepository.delete(user.get());
 
     }
 
