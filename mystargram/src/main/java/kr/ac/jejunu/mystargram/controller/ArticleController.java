@@ -7,21 +7,14 @@ import kr.ac.jejunu.mystargram.entity.Article;
 import kr.ac.jejunu.mystargram.repository.UserRepository;
 import kr.ac.jejunu.mystargram.utils.ImageUtils;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.net.http.HttpHeaders;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -84,10 +77,6 @@ public class ArticleController {
         Article article = inputArticle.getArticle();
         article.setWriter(user);
 
-//        System.out.println("article pack : ");
-//        System.out.println(inputArticle);
-
-        //
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Date time = new Date();
         String fileName = user.getId().toString() + "-" + dateFormat.format(time);
@@ -95,13 +84,9 @@ public class ArticleController {
         byte[] imgData = ImageUtils.base64ToByteArray(inputArticle.getArticleImgData().toString());
         File saveFile = new File(imgPath);
 
-//        System.out.println(saveFile.getName());
-//        System.out.println(saveFile.getAbsolutePath());
         ImageUtils.writeImageAtFile(imgData, saveFile);
 
         // set image path for access out
-//        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-//        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String serverUrl = request.getRequestURL().toString().replace(request.getRequestURI(), "");
         article.setImgUrl(serverUrl + "/images/article/" + fileName + ".jpg");
 
@@ -129,11 +114,7 @@ public class ArticleController {
         deletedArticle.setWriter(user);
         articleRepository.delete(deletedArticle);
         System.out.println(articleRepository.findById(deletedArticle.getId()));
-        if (articleRepository.findById(deletedArticle.getId()).isEmpty()){
-            return true;
-        } else {
-            return false;
-        }
 
+        return articleRepository.findById(deletedArticle.getId()).isEmpty();
     }
 }
