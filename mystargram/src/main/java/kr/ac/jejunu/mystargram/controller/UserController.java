@@ -66,11 +66,14 @@ public class UserController {
     }
     //회원 탈퇴
     @DeleteMapping("/delete/{username}")
-    public void deleteUser(Principal principal) {
+    public boolean deleteUser(Principal principal) {
         Optional<User> user = userRepository.findByUsername(principal.getName());
-        articleRepository.deleteAllByWriter(user.get());
+        List<Article> articleList = articleRepository.findAllByWriter(user.get());
+        for (Article article:articleList) {
+            articleRepository.delete(article);
+        }
         userRepository.delete(user.get());
-
+        return userRepository.findByUsername(user.get().getUsername()).isEmpty();
     }
 
 
