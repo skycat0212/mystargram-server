@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.Map;
 
 @RestController
@@ -24,7 +25,8 @@ public class UserController {
         return userRepository.save(
                 User.builder().
                         username(newUser.get("username")).
-                        password(passwordEncoder.encode(newUser.get("password")))
+                        password(passwordEncoder.encode(newUser.get("password"))).
+                        roles(Collections.singletonList("ROLE_USER"))
                 .build()
         );
     }
@@ -43,6 +45,7 @@ public class UserController {
 
     }
 
+    //아이디 중복검사
     @GetMapping("/{username}")
     public boolean checkUsableName(@PathVariable(value = "username") String username) {
         System.out.println(username);
